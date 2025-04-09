@@ -2,25 +2,24 @@ CREATE DATABASE IF NOT EXISTS kasir;
 USE kasir;
 
 -- Tabel Kategori
-CREATE TABLE tbl_kategori (
+CREATE TABLE kategori (
     id_kategori INT AUTO_INCREMENT PRIMARY KEY,
-    nama_kategori VARCHAR(100),
-    slug VARCHAR(100)
+    nama_kategori VARCHAR(100)
 );
 
 -- Tabel Produk
-CREATE TABLE tbl_produk (
+CREATE TABLE produk (
     id_produk INT AUTO_INCREMENT PRIMARY KEY,
     id_kategori INT,
     nama_produk VARCHAR(100),
     stok INT,
     deskripsi TEXT,
     harga DECIMAL(10,2),
-    FOREIGN KEY (id_kategori) REFERENCES tbl_kategori(id_kategori)
+    FOREIGN KEY (id_kategori) REFERENCES kategori(id_kategori)
 );
 
 -- Tabel User
-CREATE TABLE tbl_user (
+CREATE TABLE user (
     id_user INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50),
     password VARCHAR(255),
@@ -28,35 +27,35 @@ CREATE TABLE tbl_user (
 );
 
 -- Tabel Transaksi
-CREATE TABLE tbl_transaksi (
+CREATE TABLE transaksi (
     id_transaksi INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT,
     tanggal_transaksi DATE,
-    FOREIGN KEY (id_user) REFERENCES tbl_user(id_user)
+    FOREIGN KEY (id_user) REFERENCES user(id_user)
 );
 
 -- Tabel Detail Transaksi
-CREATE TABLE tbl_detail_transaksi (
+CREATE TABLE detail_transaksi (
     id_detail INT AUTO_INCREMENT PRIMARY KEY,
     id_transaksi INT,
     id_produk INT,
     jumlah INT,
     harga_satuan DECIMAL(10,2),
-    FOREIGN KEY (id_transaksi) REFERENCES tbl_transaksi(id_transaksi),
-    FOREIGN KEY (id_produk) REFERENCES tbl_produk(id_produk)
+    FOREIGN KEY (id_transaksi) REFERENCES transaksi(id_transaksi),
+    FOREIGN KEY (id_produk) REFERENCES produk(id_produk)
 );
 
 -- Tabel Log Aktivitas
-CREATE TABLE tbl_log_aktivitas (
+CREATE TABLE log_aktivitas (
     id_log INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT,
     aktivitas TEXT,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_user) REFERENCES tbl_user(id_user)
+    FOREIGN KEY (id_user) REFERENCES user(id_user)
 );
 
 -- Tabel Member
-CREATE TABLE tbl_member (
+CREATE TABLE member (
     id_member INT AUTO_INCREMENT PRIMARY KEY,
     nama_member VARCHAR(100),
     no_hp VARCHAR(15),
@@ -64,13 +63,13 @@ CREATE TABLE tbl_member (
 );
 
 -- Tabel Pembayaran
-CREATE TABLE tbl_pembayaran (
+CREATE TABLE pembayaran (
     id_pembayaran INT AUTO_INCREMENT PRIMARY KEY,
     id_transaksi INT,
     metode_pembayaran VARCHAR(50),
     jumlah_bayar DECIMAL(10,2),
     keterangan TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_transaksi) REFERENCES tbl_transaksi(id_transaksi)
+    FOREIGN KEY (id_transaksi) REFERENCES transaksi(id_transaksi)
 );
- 
+
