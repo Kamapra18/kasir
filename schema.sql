@@ -66,10 +66,13 @@ CREATE TABLE member (
 CREATE TABLE pembayaran (
     id_pembayaran INT AUTO_INCREMENT PRIMARY KEY,
     id_transaksi INT,
+    id_member INT,  -- kolom baru untuk relasi ke member
     metode_pembayaran VARCHAR(50),
     jumlah_bayar DECIMAL(10,2),
+    diskon DECIMAL(10,2) DEFAULT 0.00,  -- kolom baru untuk diskon
     keterangan TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_transaksi) REFERENCES transaksi(id_transaksi)
+    FOREIGN KEY (id_transaksi) REFERENCES transaksi(id_transaksi),
+    FOREIGN KEY (id_member) REFERENCES member(id_member)
 );
 
