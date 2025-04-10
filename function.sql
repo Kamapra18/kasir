@@ -1,8 +1,8 @@
- -- ========================
--- FUNCTION
+-- ========================
+--         FUNCTION
 -- ======================== 
 
-
+-- cek_status_stok
 DELIMITER $$
 
 CREATE FUNCTION cek_status_stok(p_id_produk INT)
@@ -22,7 +22,7 @@ END$$
 
 DELIMITER ;
 
-
+-- hitung diskon
 DELIMITER $$
 
 CREATE FUNCTION hitung_diskon(jumlah_bayar DECIMAL(10,2))

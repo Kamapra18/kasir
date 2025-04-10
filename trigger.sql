@@ -1,3 +1,7 @@
+-- ========================
+--         TRIGGER
+-- ======================== 
+
 --  triger kurangin_stock_setelah_transaksi
 DELIMITER $$
 

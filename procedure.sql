@@ -1,7 +1,9 @@
 -- ========================
--- PROCEDURAL
+--         PROCEDURE
 -- ======================== 
 
+
+-- Procedure untuk menambah stock produk
 DELIMITER $$
 
 CREATE PROCEDURE tambah_stok (
@@ -17,6 +19,7 @@ END$$
 DELIMITER ;
 
 
+-- Procedure untuk menambah produk baru
 DELIMITER $$
 
 CREATE PROCEDURE tambah_produk_baru (

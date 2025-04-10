@@ -1,7 +1,6 @@
- 
 -- ========================
--- DATA DUMMY / SAMPLE DATA
--- ========================
+--         VIEW
+-- ======================== 
 
 -- view_laporan_penjualan_harian 
 
