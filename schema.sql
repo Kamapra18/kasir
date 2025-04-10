@@ -54,14 +54,6 @@ CREATE TABLE log_aktivitas (
     FOREIGN KEY (id_user) REFERENCES user(id_user)
 );
 
--- Tabel Member
-CREATE TABLE member (
-    id_member INT AUTO_INCREMENT PRIMARY KEY,
-    nama_member VARCHAR(100),
-    no_hp VARCHAR(15),
-    email VARCHAR(100)
-);
-
 -- Tabel Pembayaran
 CREATE TABLE pembayaran (
     id_pembayaran INT AUTO_INCREMENT PRIMARY KEY,
