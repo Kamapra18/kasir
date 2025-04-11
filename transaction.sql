@@ -1,37 +1,53 @@
--- ========================
---     TRANSAKSI KASIR
--- ========================
+-- =============================
+-- PROCEDURE PROSES TRANSAKSI
+-- =============================
 
-START TRANSACTION;
+DELIMITER $$
 
--- 1. Tambahkan transaksi baru oleh kasir (misal id_user = 2)
-INSERT INTO transaksi (id_user, tanggal_transaksi)
-VALUES (2, CURDATE());
+CREATE PROCEDURE proses_transaksi (
+    IN p_id_user INT,
+    IN p_metode_pembayaran VARCHAR(50),
+    IN p_keterangan TEXT,
+    IN p_produk_1 INT,
+    IN p_jumlah_1 INT,
+    IN p_harga_1 DECIMAL(10,2),
+    IN p_produk_2 INT,
+    IN p_jumlah_2 INT,
+    IN p_harga_2 DECIMAL(10,2)
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        -- Jika error, rollback semua perubahan
+        ROLLBACK;
+    END;
 
--- 2. Ambil ID transaksi yang baru saja dibuat
-SET @id_transaksi := LAST_INSERT_ID();
+    START TRANSACTION;
 
--- 3. Tambahkan detail transaksi
--- Produk: id_produk 1 (2 pcs x 15000), dan id_produk 2 (1 pcs x 10000)
-INSERT INTO detail_transaksi (id_transaksi, id_produk, jumlah, harga_satuan)
-VALUES
-(@id_transaksi, 1, 2, 15000.00),
-(@id_transaksi, 2, 1, 10000.00);
+    -- 1. Insert ke transaksi
+    INSERT INTO transaksi (id_user, tanggal_transaksi)
+    VALUES (p_id_user, CURDATE());
 
--- 4. Hitung total bayar dari detail transaksi
-SET @total := (2 * 15000.00) + (1 * 10000.00);
+    -- 2. Ambil ID transaksi terakhir
+    SET @id_transaksi := LAST_INSERT_ID();
 
--- 5. Hitung diskon otomatis pakai function buatanmu
-SET @diskon := hitung_diskon(@total);
+    -- 3. Tambah ke detail transaksi
+    INSERT INTO detail_transaksi (id_transaksi, id_produk, jumlah, harga_satuan)
+    VALUES
+        (@id_transaksi, p_produk_1, p_jumlah_1, p_harga_1),
+        (@id_transaksi, p_produk_2, p_jumlah_2, p_harga_2);
 
--- 6. Hitung total yang harus dibayar
-SET @total_bayar := @total - @diskon;
+    -- 4. Hitung total bayar
+    SET @total := (p_jumlah_1 * p_harga_1) + (p_jumlah_2 * p_harga_2);
 
--- 7. Simpan ke tabel pembayaran
-INSERT INTO pembayaran (
-    id_transaksi, metode_pembayaran, jumlah_bayar, diskon, keterangan
-) VALUES (
-    @id_transaksi, 'Cash', @total_bayar, @diskon, CONCAT('Diskon otomatis ', @diskon)
-);
+    -- 5. Hitung diskon via fungsi
+    SET @diskon := hitung_diskon(@total);
 
-COMMIT;
+    -- 6. Insert ke pembayaran
+    INSERT INTO pembayaran (id_transaksi, metode_pembayaran, jumlah_bayar, diskon, keterangan)
+    VALUES (@id_transaksi, p_metode_pembayaran, @total, @diskon, p_keterangan);
+
+    COMMIT;
+END$$
+
+DELIMITER ;
