@@ -66,10 +66,3 @@ TokoSerba menjual berbagai macam **barang dan makanan**, dengan fitur berbasis b
 ### View
 - `view_laporan_penjualan_harian` → Rekap transaksi harian  
 - `view_produk_terlaris` → Produk paling banyak terjual  
-
----
-
-## 📌 Catatan Tambahan
-- Aplikasi ini dijalankan secara lokal menggunakan **Laragon**
-- Database: **MySQL**
-- Pengujian dilakukan melalui **phpMyAdmin** dan **command line**
