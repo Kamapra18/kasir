@@ -1,47 +1,75 @@
-UTS Basis Data Lanjutan Kelompok Yappingers
+# UTS Basis Data Lanjutan - Kelompok Yappingers
 
-Nama Anggota:
-1. I Made Wisnu Pradnya Yoga - 2301020010
-2. I Kadek Mario Prayoga - 2301020018
-3. I Putu Ananta Dwija Prasetya Anjasmara - 2301020020
+## Nama Anggota:
+1. **I Made Wisnu Pradnya Yoga** - 2301020010  
+2. **I Kadek Mario Prayoga** - 2301020018  
+3. **I Putu Ananta Dwija Prasetya Anjasmara** - 2301020020  
 
-Kami Kelompok Yappingers membuat aplikasi Kasir untuk memenuhi Project UTS Basis Data Lanjutan.
-Sebuah aplikasi Kasir TokoSerba yang dimana menjual berbagai macam barang dan makanan.
-Aplikasi ini mendukung pengelolaan produk dan stok, transaksi penjualan, serta laporan penjualan harian.
+---
 
-Struktur Data Utama:
-    Tabel user
-    - Menyimpan data pengguna sistem: admin, kasir, dan owner.
+## Deskripsi Proyek
+Kami, **Kelompok Yappingers**, membuat aplikasi **Kasir "TokoSerba"** sebagai proyek UTS untuk mata kuliah **Basis Data Lanjutan**.  
+Aplikasi ini mendukung:
+- Pengelolaan produk & stok
+- Transaksi penjualan
+- Laporan penjualan harian
 
-    Tabel kategori dan produk
-    - Mengelompokkan dan menyimpan informasi produk yang dijual, termasuk stok dan harga.
+TokoSerba menjual berbagai macam **barang dan makanan**, dengan fitur berbasis basis data untuk kemudahan manajemen toko.
 
-    Tabel transaksi, detail_transaksi, dan pembayaran
-    - Menyimpan data penjualan, rincian produk yang dibeli, dan informasi pembayaran.
+---
 
-    Tabel log_aktivitas
-    - Mencatat aktivitas penting pengguna, seperti transaksi penjualan atau penambahan produk
+## Struktur Data Utama
 
-Manajemen Produk dan Stok
-    Stored Procedure:
-    - tambah_produk_baru – Menambahkan data produk baru.
-    - tambah_stok_produk – Menambahkan stok ke produk yang sudah ada.
+### `user`
+- Menyimpan data pengguna sistem: **admin**, **kasir**, dan **owner**
 
-    Trigger:
-    - kurangi_stok_setelah_transaksi – Mengurangi stok secara otomatis setelah transaksi terjadi.
+### `kategori` & `produk`
+- Mengelompokkan dan menyimpan informasi produk
+- Termasuk stok, harga, dan deskripsi
 
-    View:
-    - view_stok_habis – Menampilkan daftar produk yang stok-nya kosong.
+### `transaksi`, `detail_transaksi`, `pembayaran`
+- Menyimpan data penjualan dan detail produk yang dibeli
+- Mengatur informasi pembayaran (tunai/member)
 
-Penjualan & Transaksi
-    Trigger:
-    - catat_log_aktivitas_transaksi – Mencatat aktivitas transaksi otomatis ke tabel log_aktivitas.
+### `log_aktivitas`
+- Mencatat aktivitas pengguna: transaksi, penambahan produk, dll.
 
-    Function
-    - hitung_diskon – Menghitung diskon sesuai dengan member dan total belanja.
-    - cek_status_stok – Mengecek status stok produk (cukup atau tidak).
+---
 
-Laporan & Monitoring
-    View:
-    - view_laporan_penjualan_harian – Menampilkan rekap transaksi per hari.
-    - view_produk_terlaris – Menampilkan daftar produk paling banyak terjual.
+##  Manajemen Produk & Stok
+
+### Stored Procedures
+- `tambah_produk_baru` → Menambahkan produk baru  
+- `tambah_stok_produk` → Menambahkan stok produk yang sudah ada  
+
+### Trigger
+- `kurangi_stok_setelah_transaksi` → Mengurangi stok otomatis saat transaksi terjadi  
+
+### View
+- `view_stok_habis` → Menampilkan produk dengan stok kosong  
+
+---
+
+## Penjualan & Transaksi
+
+### Trigger
+- `catat_log_aktivitas_transaksi` → Mencatat transaksi otomatis ke log  
+
+### Function
+- `hitung_diskon(member, total_belanja)` → Menghitung diskon berdasarkan status member  
+- `cek_status_stok(kode_produk)` → Mengecek apakah stok cukup  
+
+---
+
+## Laporan & Monitoring
+
+### View
+- `view_laporan_penjualan_harian` → Rekap transaksi harian  
+- `view_produk_terlaris` → Produk paling banyak terjual  
+
+---
+
+## 📌 Catatan Tambahan
+- Aplikasi ini dijalankan secara lokal menggunakan **Laragon**
+- Database: **MySQL**
+- Pengujian dilakukan melalui **phpMyAdmin** dan **command line**
